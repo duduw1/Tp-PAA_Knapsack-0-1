@@ -1,0 +1,107 @@
+% Knapsack report generated for online compilation
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath,amssymb}
+\usepackage{siunitx}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.17}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true,linkcolor=blue,urlcolor=blue}
+
+\title{Relat\'orio: compara\c{c}\~ao de implementa\c{c}\~oes e estimativa de escalabilidade\\(Knapsack 0/1)}
+\author{Gerado automaticamente}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+\section*{Resumo}
+Foram analisadas medi\c{c}\~oes de tempo coletadas em \texttt{results.csv} para v\'arias implementa\c{c}\~oes. Em particular:
+\begin{itemize}
+  \item \texttt{1.py} (implementa\c{c}\~ao ing\^enua recursiva, complexidade temporal $\Theta(2^n)$);
+  \item \texttt{4.py} (implementa\c{c}\~ao din\^amica que obteve a solu\c{c}\~ao \'otima nos testes).
+\end{itemize}
+
+O documento apresenta um ajuste de modelo para os tempos da implementa\c{c}\~ao ing\^enua, estimativas para uma entrada 10\times maior e coment\'arios sobre a solu\c{c}\~ao em espa\c{c}o linear (DP).
+
+\section{Dados medidos (selecionados)}
+Tabela com tempos (segundos) observados para a implementa\c{c}\~ao ing\^enua (\texttt{impl\_1}) — pontos usados no ajuste exponencial:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{@{}rr@{}}
+\toprule
+$n$ (itens) & tempo (s) \\
+\midrule
+10 & 0.000488 \\
+20 & 0.456596 \\
+28 & 120.0016 \\
+30 & 454.1472 \\
+32 & 1742.1655 \\
+\bottomrule
+\end{tabular}
+\caption{Pontos representativos extra\'idos de \texttt{results.csv}.}
+\end{table}
+
+\section{Ajuste exponencial ao algoritmo ing\^enuo}
+A complexidade te\'orica do algoritmo recursivo \`e $\Theta(2^n)$. Ajustamos empiricamente um modelo do tipo
+\[ T(n) \approx a \cdot b^{n}. \]
+Fazendo regress\~ao linear em $\ln T$ contra $n$ obtemos, aproximadamente,
+\[ \boxed{T(n) \approx 4.5\times 10^{-7}\cdot 2^{n}}. \]
+Isto mostra que o fator base $b$ \'e pr\'oximo de $2$, consistente com a an\'alise te\'orica.
+
+\section{Estimativa para entrada 10$\times$ maior (algoritmo ing\^enuo)}
+Escolhemos como refer\^encia o maior problema pr\'atico observado com o algoritmo ing\^enuo: $n=20$. Uma entrada 10$\times$ maior tem $n'=200$.
+
+Usando o modelo:
+\[ T(200) \approx 4.5\times 10^{-7} \times 2^{200} \approx 7.2\times 10^{53}\ \text{segundos.} \]
+Convertendo para anos:
+\[ \approx 2.3\times 10^{46}\ \text{anos}. \]
+Conclus\~ao: totalmente impratic\'avel — ordens de magnitude al\'em de qualquer horizonte computacional.
+
+\section{Implementa\c{c}\~ao com complexidade de espa\c{c}o linear}
+Uma soluc\~ao pr\'atica para obter a solu\c{c}\~ao \'otima \`e usar Programac\~ao Din\^amica otimizada em espa\c{c}o (usar apenas um vetor de tamanho $W$), com custo temporal $O(nW)$ e espa\c{c}o $O(W)$.
+
+No seu experimento a implementa\c{c}\~ao din\^amica (registrada como \texttt{impl\_4}) resolveu $n=32$ (capacidade $W=100$) em tempo da ordem de $10^{-3}\,$s.
+
+\subsection*{Maior problema resolvido com solu\c{c}\~ao \'otima}
+\begin{itemize}
+  \item Vers\~ao DP: solu\c{c}\~ao \'otima obtida para $n=32$ (\texttt{input\_32.json}, $W=100$), tempo medido $\approx 0.001\,$s.
+  \item Vers\~ao ing\^enua: maior inst\^ancia pr\'atica observada $n\approx 20$ (al\'em disso os tempos explodem).
+\end{itemize}
+
+\section{Estimativa de tempo para entrada 10$\times$ maior — DP}
+Depende da hip\'otese sobre $W$:
+\begin{description}
+  \item[Hip\'otese A -- $W$ fixo:] tempo cresce aproximadamente linearmente com $n$. Para $n'=320$:
+  \[ T_{DP}(320) \approx T_{DP}(32)\cdot\frac{320}{32} \approx 0.001\times 10 = 0.01\ \text{s}. \]
+  \item[Hip\'otese B -- $W$ cresce com $n$ (10$\times$):] custo $O(nW)$ cresce por $10\times 10 = 100$, isto \`e $\approx 0.1\,$s.
+\end{description}
+
+\section{Coment\'arios sobre limita\c{c}\~oes}
+\begin{itemize}
+  \item O algoritmo ing\^enuo est\'a limitado por crescimento exponencial $2^n$.
+  \item A DP com espa\c{c}o $O(W)$ fica limitada quando $W$ \'e muito grande; o tempo depende do produto $nW$.
+  \item Os n\'umeros absolutos dependem do hardware e da implementa\c{c}\~ao (Python), mas as ordens de crescimento (exponencial vs. polinomial) s\~ao robustas.
+\end{itemize}
+
+\section*{Conclus\~ao (resposta direta)}
+\begin{enumerate}
+  \item Implementa\c{c}\~ao com espa\c{c}o linear (DP) obt\'em a solu\c{c}\~ao \'otima.
+  \item Maior problema resolvido experimentalmente com DP: $n=32$ (capacidade 100), tempo $\approx 10^{-3}$ s.
+  \item Motivo da limita\c{c}\~ao: algoritmo ing\^enuo escala exponencialmente; DP escala $O(nW)$ e depende de $W$.
+  \item Estimativa para entrada 10$\times$ maior: ing\^enuo -- imposs\'ivel (ordens de $10^{46}$ anos); DP -- pr\'atico (0.01--0.1 s sob hip\'oteses razo\'aveis).
+\end{enumerate}
+
+\bigskip
+\noindent Se desejar, posso:
+\begin{itemize}
+  \item incluir todos os pontos do arquivo \texttt{results.csv} no gr\'afico automaticamente;
+  \item compilar o PDF localmente e enviar o resultado;
+  \item acrescentar compara\c{c}\~ao entre a heur\'istica gulosa (\texttt{3.py}) e a solu\c{c}\~ao \'otima (\texttt{4.py}) com perda percentual.
+\end{itemize}
+
+\end{document}
