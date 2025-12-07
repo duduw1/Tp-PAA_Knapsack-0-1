@@ -1,4 +1,4 @@
-"""
+"""  
 Dynamic programming 0/1 knapsack with item reconstruction.
 
 Provides two functions:
@@ -8,7 +8,7 @@ Provides two functions:
 When run as a script, demonstrates the algorithm and prints which items were
 chosen (by index) and the total value.
 """
-
+# algoritmio 2 mas mostrando os itens selecionados 
 def knapsack_with_items(W, val, wt):
 	"""
 	Bottom-up DP for 0/1 knapsack that also reconstructs the chosen items.

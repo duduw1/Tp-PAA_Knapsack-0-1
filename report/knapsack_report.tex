@@ -74,26 +74,26 @@ Observação: a solução ótima para $n=32$ foi obtida pela implementação em 
 
 \subsection*{Comentário sobre a limitação}
 O comportamento observado é consistente com a análise teórica:
-- A implementação ingênua (arquivo \texttt{1\_brutalF.py}) tem complexidade temporal $\Theta(2^{n})$ — o número de chamadas recursivas cresce exponencialmente.
+- A implementação ingênua (arquivo \texttt{1\_brutalF.py}) tem complexidade temporal $\\Theta(2^{n})$ — o número de chamadas recursivas cresce exponencialmente.
 - A implementação por programação dinâmica (arquivo \texttt{4\_pd\_com\_itens.py}) tem custo polinomial dependente de $n$ e da capacidade $W$, resultando em tempos muito menores na prática quando $W$ é moderado.
 
 Na prática, cada incremento em $n$ tende a multiplicar o tempo por fator próximo de 2 na versão ingênua, daí o crescimento exponencial observado.
 
-\subsection*{Estimativa para entrada 10\times maior que o maior problema resolvido}
-Vamos estimar o tempo necessário para uma entrada $10\times$ maior que o maior problema resolvido experimentalmente ($n_{max}=32$). Mostramos duas estimativas: para a implementação exata (arquivo \texttt{4\_pd\_com\_itens.py}) e para a implementação ingênua (arquivo \texttt{1\_brutalF.py}) usando o ajuste exponencial obtido dos dados.
+\subsection*{Estimativa para entrada 10\\times maior que o maior problema resolvido}
+Vamos estimar o tempo necessário para uma entrada $10\\times$ maior que o maior problema resolvido experimentalmente ($n_{max}=32$). Mostramos duas estimativas: para a implementação exata (arquivo \texttt{4\_pd\_com\_itens.py}) e para a implementação ingênua (arquivo \texttt{1\_brutalF.py}) usando o ajuste exponencial obtido dos dados.
 
 \paragraph{1) Implementação exata (hipótese A: $W$ fixo)}
-Se a capacidade $W$ permanece aproximadamente a mesma, o tempo da implementação baseada em PD cresce aproximadamente proporcional a $n$. Assim, para $n' = 10\times 32 = 320$:
+Se a capacidade $W$ permanece aproximadamente a mesma, o tempo da implementação baseada em PD cresce aproximadamente proporcional a $n$. Assim, para $n' = 10\\times 32 = 320$:
 \[ T(320) \approx T(32) \cdot \frac{320}{32} \approx 9.995\\times10^{-4} \times 10 \approx 9.995\\times10^{-3}\ \text{s} \approx 0.01\ \text{s}.\]
 
-\paragraph{2) Implementação exata (hipótese B: $W$ cresce 10\times)}
-Se tanto $n$ quanto $W$ aumentarem por $10\times$, o custo que depende do produto $nW$ sugere um fator $100$ no tempo:
-\[ T(320,W'=10W) \approx 100 \times T(32) \approx 100 \times 9.995\\times10^{-4} \approx 9.995\\times10^{-2}\ \text{s} \approx 0.10\ \text{s}.\]
+\paragraph{2) Implementação exata (hipótese B: $W$ cresce 10\\times)}
+Se tanto $n$ quanto $W$ aumentarem por $10\\times$, o custo que depende do produto $nW$ sugere um fator $100$ no tempo:
+\[ T(320,W'=10W) \approx 100 \\times T(32) \approx 100 \\times 9.995\\times10^{-4} \approx 9.995\\times10^{-2}\ \text{s} \approx 0.10\ \text{s}.\]
 
 \paragraph{3) Implementação ingênua — extrapolação exponencial}
 Ajustando um modelo exponencial $T(n) \approx a \cdot b^{n}$ aos tempos medidos para a implementação ingênua obteve-se (regressão linear em $\ln T$):
-\[ a \approx 4.9621\\times10^{-7},\qquad b \approx 1.99023.\]
-Usando esse modelo para $n' = 320$ (10\times 32) resulta em:
+\[ a \approx 4.9621\\times10^{-7},\\qquad b \approx 1.99023.\]
+Usando esse modelo para $n' = 320$ (10\\times 32) resulta em:
 \[ T_{naive}(320) \approx a \cdot b^{320} \approx 2.211\\times10^{89}\ \text{segundos} \approx 7.01\\times10^{81}\ \text{anos}.
 \]
 
@@ -281,26 +281,26 @@ Observação: a solução ótima para $n=32$ foi obtida pela implementação em 
 
 \subsection*{Comentário sobre a limitação}
 O comportamento observado é consistente com a análise teórica:
-- A implementação ingênua (arquivo \texttt{1\_brutalF.py}) tem complexidade temporal $\Theta(2^{n})$ — o número de chamadas recursivas cresce exponencialmente.
+- A implementação ingênua (arquivo \texttt{1\_brutalF.py}) tem complexidade temporal $\\Theta(2^{n})$ — o número de chamadas recursivas cresce exponencialmente.
 - A implementação por programação dinâmica (arquivo \texttt{4\_pd\_com\_itens.py}) tem custo polinomial dependente de $n$ e da capacidade $W$, resultando em tempos muito menores na prática quando $W$ é moderado.
 
 Na prática, cada incremento em $n$ tende a multiplicar o tempo por fator próximo de 2 na versão ingênua, daí o crescimento exponencial observado.
 
-\subsection*{Estimativa para entrada 10\times maior que o maior problema resolvido}
-Vamos estimar o tempo necessário para uma entrada $10\times$ maior que o maior problema resolvido experimentalmente ($n_{max}=32$). Mostramos duas estimativas: para a implementação exata (arquivo \texttt{4\_pd\_com\_itens.py}) e para a implementação ingênua (arquivo \texttt{1\_brutalF.py}) usando o ajuste exponencial obtido dos dados.
+\subsection*{Estimativa para entrada 10\\times maior que o maior problema resolvido}
+Vamos estimar o tempo necessário para uma entrada $10\\times$ maior que o maior problema resolvido experimentalmente ($n_{max}=32$). Mostramos duas estimativas: para a implementação exata (arquivo \texttt{4\_pd\_com\_itens.py}) e para a implementação ingênua (arquivo \texttt{1\_brutalF.py}) usando o ajuste exponencial obtido dos dados.
 
 \paragraph{1) Implementação exata (hipótese A: $W$ fixo)}
-Se a capacidade $W$ permanece aproximadamente a mesma, o tempo da implementação baseada em PD cresce aproximadamente proporcional a $n$. Assim, para $n' = 10\times 32 = 320$:
+Se a capacidade $W$ permanece aproximadamente a mesma, o tempo da implementação baseada em PD cresce aproximadamente proporcional a $n$. Assim, para $n' = 10\\times 32 = 320$:
 \[ T(320) \approx T(32) \cdot \frac{320}{32} \approx 9.995\\times10^{-4} \times 10 \approx 9.995\\times10^{-3}\ \text{s} \approx 0.01\ \text{s}.\]
 
-\paragraph{2) Implementação exata (hipótese B: $W$ cresce 10\times)}
-Se tanto $n$ quanto $W$ aumentarem por $10\times$, o custo que depende do produto $nW$ sugere um fator $100$ no tempo:
-\[ T(320,W'=10W) \approx 100 \times T(32) \approx 100 \times 9.995\\times10^{-4} \approx 9.995\\times10^{-2}\ \text{s} \approx 0.10\ \text{s}.\]
+\paragraph{2) Implementação exata (hipótese B: $W$ cresce 10\\times)}
+Se tanto $n$ quanto $W$ aumentarem por $10\\times$, o custo que depende do produto $nW$ sugere um fator $100$ no tempo:
+\[ T(320,W'=10W) \approx 100 \\times T(32) \approx 100 \\times 9.995\\times10^{-4} \approx 9.995\\times10^{-2}\ \text{s} \approx 0.10\ \text{s}.\]
 
 \paragraph{3) Implementação ingênua — extrapolação exponencial}
 Ajustando um modelo exponencial $T(n) \approx a \cdot b^{n}$ aos tempos medidos para a implementação ingênua obteve-se (regressão linear em $\ln T$):
-\[ a \approx 4.9621\\times10^{-7},\qquad b \approx 1.99023.\]
-Usando esse modelo para $n' = 320$ (10\times 32) resulta em:
+\[ a \approx 4.9621\\times10^{-7},\\qquad b \approx 1.99023.\]
+Usando esse modelo para $n' = 320$ (10\\times 32) resulta em:
 \[ T_{naive}(320) \approx a \cdot b^{320} \approx 2.211\\times10^{89}\ \text{segundos} \approx 7.01\\times10^{81}\ \text{anos}.
 \]
 
@@ -414,154 +414,3 @@ def knapsack(W, val, wt):
 - Espaço: $O(n)$.
 
 Resumo comparativo: heurística gulosa ($O(n\log n)$) \ll memoização/PD ($O(nW)$, se $W$ moderado) \ll força bruta recursiva ($\Theta(2^{n})$).
-
-\section{Seção 6 — Qualidade da solução aproximada}
-Usamos os valores em \texttt{results.csv} para comparar o resultado ótimo (\texttt{4\_pd\_com\_itens.py}) com o obtido pela heurística (\texttt{3\_greed.py}). Para cada par $(W,n)$ calculamos a diferença absoluta $\Delta = V_{opt}-V_{approx}$ e o gap relativo em porcentagem.
-
-\begin{table}[h]
-\centering
-\begin{tabular}{@{}rrrrrr@{}}
-	oprule
- $W$ & $n$ & $V_{opt}$ & $V_{approx}$ & $\Delta$ & gap (\%) \\
-\midrule
- 13 & 5  & 43   & 35   & 8  & 18.60 \\
- 40 & 10 & 488  & 488  & 0  & 0.00 \\
- 70 & 20 & 879  & 868  & 11 & 1.25 \\
- 100 & 28 & 1290 & 1283 & 7  & 0.54 \\
- 100 & 30 & 1327 & 1327 & 0  & 0.00 \\
- 100 & 32 & 1428 & 1421 & 7  & 0.49 \\
-\bottomrule
-\end{tabular}
-\caption{Comparação entre valor ótimo ($V_{opt}$) e valor obtido pela heurística gulosa ($V_{approx}$).}
-\end{table}
-
-\subsection*{Estatísticas}
-Dos 6 pontos analisados:
-\begin{itemize}
-  \item Média do gap relativo: aproximadamente $3.48\%$;
-  \item Mediana do gap relativo: aproximadamente $0.52\%$;
-  \item Máximo do gap relativo: $18.60\%$ (caso $W=13, n=5$).
-\end{itemize}
-
-\section*{Conclusão}
-Em resumo:
-\begin{itemize}
-  \item A implementação ingênua (\texttt{1\_brutalF.py}) cresce exponencialmente e é impraticável para $n$ moderamente grandes.
-  \item A programação dinâmica (\texttt{4\_pd\_com\_itens.py}) fornece soluções ótimas e reconstrói os itens, sendo adequada quando $W$ é moderado.
-  \item A heurística gulosa (\texttt{3\_greed.py}) é muito rápida e, nos dados experimentais, produz soluções próximas do ótimo na maioria dos casos testados; porém não garante optimalidade em todas as instâncias.
-  \item Recomendação prática: usar a heurística como baseline para instâncias grandes e, quando necessário, aplicar a solução exata ou técnicas de aprimoramento local para refinar a solução.
-\end{itemize}
-
-\end{document}
-
-
-  Returns the total value of the chosen items.
-  """
-  n = len(val)
-  items = []
-  for i in range(n):
-    if wt[i] <= 0:
-      # avoid division by zero; treat zero-weight items as very high ratio
-      ratio = float('inf')
-    else:
-      ratio = val[i] / wt[i]
-    items.append((ratio, wt[i], val[i], i))
-
-  # Sort by descending ratio
-  items.sort(key=lambda x: x[0], reverse=True)
-
-  remaining = W
-  total_value = 0
-  chosen = []
-  for ratio, w, v, idx in items:
-    if w <= remaining:
-      chosen.append(idx)
-      remaining -= w
-      total_value += v
-    # can't pick more if capacity is exhausted
-    if remaining == 0:
-      break
-
-  return total_value
-
-if __name__ == "__main__":
-  val = [1, 2, 3]
-  wt = [4, 5, 1]
-  W = 4
-    
-  print(knapsack(W, val, wt))
-\end{verbatim}
-
-\subsection*{Observações práticas}
-- A heurística é extremamente rápida e serve como baseline para instâncias grandes.
-- Em vários casos práticos produz soluções próximas do ótimo; entretanto, existem instâncias em que a heurística falha (ex.: itens com baixos pesos e altos valores combinados que não são capturados pela simples razão).
-
-\section{Seção 5 — Análise de complexidade}
-Nesta seção apresentamos uma análise de complexidade de tempo e espaço para as três implementações principais referidas no relatório (arquivos listados nas seções anteriores):
-
-\subsection*{Algoritmo 1 — \texttt{1\_brutalF.py} (ingênuo recursivo)}
-- Tempo: $\Theta(2^{n})$ no pior caso. Cada item pode ser escolhido ou não, levando a uma árvore de recursão com aproximadamente $2^{n}$ folhas; a complexidade prática é exponencial em $n$.
-- Espaço: $O(n)$ devido à profundidade máxima da pilha de chamadas recursivas (mais espaço auxiliar constante por chamada).
-
-Comentário: este algoritmo é inviável para valores moderados de $n$ (por exemplo, $n\ge 30$ exibiu tempos que extrapolam recursos práticos nos experimentos).
-
-\subsection*{Algoritmo 2 — \texttt{2\_pd.py} (memoizado / top-down)}
-- Tempo: $O(nW)$, onde $W$ é a capacidade da mochila. Com memoização a cada par $(i,w)$ é calculado no máximo uma vez; o número de estados é $n\times (W+1)$.
-- Espaço: $O(nW)$ para a tabela de memoização (ou tabelas auxiliares), mais $O(n)$ de profundidade de pilha no caso top-down.
-
-Comentário: o custo é polinomial na prática quando $W$ é moderado; portanto a solução escala bem em $n$ para capacidades pequenas, mas fica cara se $W$ cresce muito.
-
-\subsection*{Algoritmo 3 — \texttt{3\_greed.py} (heurística gulosa)}
-- Tempo: $O(n\log n)$ dominado pela ordenação dos itens por razão valor/peso.
-- Espaço: $O(n)$ para armazenar a lista ordenada (além de memória temporária para ordenação), ou $O(1)$ adicional se sort in-place for usado.
-
-Comentário: a heurística é muito eficiente e útil como aproximação prática; entretanto, não garante optimalidade no problema 0/1 (contraste com as abordagens exatas que retornam solução ótima quando custo/recursos permitem).
-
-\bigskip
-Resumo comparativo (ordem por custo de tempo crescente quando $W$ e $n$ são moderados): heurística gulosa ($O(n\log n)$) \ll memoização/PD ($O(nW)$, se $W$ moderado) \ll força bruta recursiva ($\Theta(2^{n})$).
-
-\end{document}
-Resumo comparativo (ordem por custo de tempo crescente quando $W$ e $n$ são moderados): heurística gulosa ($O(n\log n)$) \ll memoização/PD ($O(nW)$, se $W$ moderado) \ll força bruta recursiva ($\Theta(2^{n})$).
-
-\section{Seção 6 — Qualidade da solução aproximada}
-Nesta seção avaliamos o quão próxima a heurística gulosa (arquivo \texttt{3\_greed.py}) chega da solução ótima encontrada pela implementação otimizada (arquivo \texttt{4\_pd\_com\_itens.py}). Usamos os valores de solução registrados em \texttt{results.csv}. Para cada par (capacidade $W$, número de itens $n$) onde ambos os algoritmos retornaram uma resposta com status \texttt{ok}, calculamos:
-
-\begin{itemize}
-  \item \textbf{Diferença absoluta:} $\Delta = V_{opt} - V_{approx}$;
-  \item \textbf{Diferença relativa (\%):} $100\\times(V_{opt} - V_{approx})/V_{opt}$.
-\end{itemize}
-
-\subsection*{Tabela de comparações}
-\begin{table}[h]
-\centering
-\begin{tabular}{@{}rrr r r r@{}}
-	oprule
- $W$ & $n$ & $V_{opt}$ & $V_{approx}$ & $\Delta$ & gap (\%) \\
-\midrule
- 13 & 5  & 43   & 35   & 8  & 18.60 \\
- 40 & 10 & 488  & 488  & 0  & 0.00 \\
- 70 & 20 & 879  & 868  & 11 & 1.25 \\
- 100 & 28 & 1290 & 1283 & 7  & 0.54 \\
- 100 & 30 & 1327 & 1327 & 0  & 0.00 \\
- 100 & 32 & 1428 & 1421 & 7  & 0.49 \\
-\bottomrule
-\end{tabular}
-\caption{Comparação entre valor ótimo ($V_{opt}$) e valor obtido pela heurística gulosa ($V_{approx}$). O gap é dado em porcentagem relativa a $V_{opt}$.}
-\end{table}
-
-\subsection*{Estatísticas sumarizadas}
-Dos 6 pontos onde houve comparação direta, obtemos:
-\begin{itemize}
-  \item \textbf{Média do gap relativo:} aproximadamente $3.48\%$;
-  \item \textbf{Mediana do gap relativo:} aproximadamente $0.52\%$;
-  \item \textbf{Máximo do gap relativo:} $18.60\%$ (caso $W=13, n=5$).
-\end{itemize}
-
-\subsection*{Interpretação e método}
-Os cálculos mostram que, na maioria dos casos testados, a heurística forneceu soluções muito próximas do ótimo (gaps relativos inferiores a $1\%$ em 4 dos 6 casos). Um caso com gap maior (\(\approx 18.6\%\)) indica que existem instâncias pequenas nas quais a ordem por razão falha em capturar combinações melhores.
-
-Método: usamos os pares de registros em \texttt{results.csv} com o mesmo par $(W,n)$ e status \texttt{ok} para ambos os algoritmos; quando apareceram múltiplos registros, considerou-se o valor reportado (os dados mostrados na tabela correspondem aos máximos observados de cada combinação nos registros disponíveis).
-
-Conclusão breve: a heurística gulosa é, em média, muito eficiente e fornece soluções próximas do ótimo na maioria das instâncias testadas; porém não é infalível — para aplicações que exigem garantia de qualidade é necessário usar a solução exata ou técnicas de aproximação com fator garantido.
-
-\end{document}

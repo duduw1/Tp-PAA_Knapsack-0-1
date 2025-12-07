@@ -1,4 +1,3 @@
-#[Better Approach 2] Using Bottom-Up DP (Tabulation) - O(n x W) Time and Space
 #[Approximation] Greedy approach (value/weight ratio) - O(n log n) time
 def knapsack(W, val, wt):
     """
