@@ -1,53 +1,56 @@
 # TP PAA — Knapsack 0/1
 
-Este repositório contém implementações e experimentos para o problema "Knapsack 0/1" usados no trabalho de PAA.
+Este repositório contém implementações e experimentos para o problema "Knapsack 0/1" (Problema da Mochila) desenvolvidos para a disciplina de Projeto e Análise de Algoritmos (PAA).
 
-Estrutura principal
-- `1.py` — implementação recursiva (ingênua, exponencial)
-- `2.py` — implementação top-down (memoização)
-- `3.py` — heurística gulosa (valor/peso)
-- `4.py` — programação dinâmica (bottom-up) com reconstrução dos itens escolhidos
-- `knapsack_benchmark.py` — runner para carregar `1.py..4.py`, medir tempos e salvar resultados em CSV
-- `run4.py` — helper para executar apenas a implementação em `4.py` com um arquivo JSON de entrada
-- `input_5.json`, `input_10.json`, `input_20.json`, `input_32.json`, `input_32.json` — exemplos de entrada
-- `input_large.json` — exemplo maior
-- `knapsack_report.tex` — LaTeX do relatório (gerado automaticamente)
+## Estrutura do Projeto
 
-Como usar
+### Implementações dos Algoritmos
+- `1_brutalF.py`: Implementação ingênua (força bruta recursiva).
+- `2_pd.py`: Implementação com Programação Dinâmica (bottom-up, espaço otimizado).
+- `3_greed.py`: Heurística gulosa (baseada na razão valor/peso).
+- `4_pd_com_itens.py`: Programação Dinâmica completa que reconstrói e retorna os itens escolhidos.
 
-1. Instale dependências (opcional)
+### Scripts Auxiliares e Relatório
+- `knapsack_benchmark.py`: Script principal para rodar benchmarks comparativos entre as implementações.
+- `run4.py`: Utilitário para rodar especificamente o algoritmo 4 com um arquivo JSON de entrada.
+- `scripts/random_tests.py`: Script para gerar casos de teste aleatórios e validar as implementações.
+- `knapsack_report.tex`: Código fonte LaTeX do relatório final.
 
-   Se for usar scripts que dependem de `numpy` ou outras bibliotecas, crie um ambiente virtual e instale:
+## Como Usar
 
-   ```powershell
-   python -m venv .venv
-   .\.venv\Scripts\Activate.ps1
-   pip install -r requirements.txt
-   ```
-
-2. Rodar o runner de benchmark (gera/usa `input.json` e salva `results.csv`):
+### 1. Pré-requisitos
+Certifique-se de ter o Python instalado. É recomendado usar um ambiente virtual se for instalar dependências externas (como `matplotlib` para gráficos, se necessário).
 
 ```powershell
-Set-Location 'C:\Users\ThorG\Documents\2025.2\paa\tp'
-python .\knapsack_benchmark.py --input input_32.json --output results.csv --timeout 60
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1   # Windows
+# source .venv/bin/activate    # Linux/Mac
+pip install -r requirements.txt # Se houver arquivo de requisitos
 ```
 
-3. Rodar apenas a implementação `4.py` (DP com reconstrução) usando `run4.py`:
+### 2. Rodar Benchmark
+Para comparar os algoritmos e salvar os resultados em CSV:
 
 ```powershell
-python .\run4.py input_32.json
+python knapsack_benchmark.py --input input_32.json --output results.csv --timeout 60
 ```
 
-4. Gerar entrada aleatória e rodar:
+### 3. Testar Implementação Otimizada (Algoritmo 4)
+Para rodar apenas a solução ótima com reconstrução de itens:
 
 ```powershell
-python .\knapsack_benchmark.py --generate --n 50 --capacity 200 --input random.json
-python .\knapsack_benchmark.py --input random.json --output results.csv
+python run4.py input_32.json
 ```
 
-Observações
-- `results.csv` está no `.gitignore` por padrão para evitar commitar medições locais — remova essa linha se desejar versionar os resultados.
-- O `knapsack_report.tex` gerado resume os resultados e inclui instruções para compilação com pdflatex/Overleaf.
+### 4. Rodar Testes Aleatórios
+Para gerar instâncias aleatórias e verificar a corretude e desempenho:
 
-Contribuições
-- Sinta-se livre para abrir issues/PRs no repositório remoto para melhorias, scripts de plotagem, ou para adicionar testes automatizados.
+```powershell
+python scripts/random_tests.py
+```
+
+## Relatório
+O arquivo `knapsack_report.tex` contém a análise detalhada dos algoritmos, complexidade e resultados experimentais. Ele pode ser compilado usando qualquer distribuição LaTeX ou importado diretamente no Overleaf.
+
+## Autores
+Trabalho desenvolvido para a disciplina de PAA.
