@@ -1,12 +1,29 @@
+latex
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{amsmath, amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+\usepackage{geometry}
+
+% Configuração das margens
+\geometry{top=3cm, bottom=2cm, left=3cm, right=2cm}
+
+\begin{document}
+
 \section{Introdução}
 
-O Problema da Mochila é um dos problemas clássicos de otimização combinatória e aparece em diversas aplicações reais, como seleção de recursos, alocação de orçamento e planejamento de carga. Na formulação adotada neste trabalho, inspirada em Carvalho (1992), considera-se o cenário de um escoteiro que precisa escolher quais itens levar em sua mochila, cada um com um peso pi e uma utilidade ui, respeitando a capacidade máxima L. O objetivo é selecionar um subconjunto de itens que maximize a utilidade total sem ultrapassar o limite de peso.
+O Problema da Mochila é um dos problemas clássicos de otimização combinatória e aparece em diversas aplicações reais, como seleção de recursos, alocação de orçamento e planejamento de carga. Na formulação adotada neste trabalho, inspirada em Carvalho (1992), considera-se o cenário de um escoteiro que precisa escolher quais itens levar em sua mochila, cada um com um peso $p_i$ e uma utilidade $u_i$, respeitando a capacidade máxima $L$. O objetivo é selecionar um subconjunto de itens que maximize a utilidade total sem ultrapassar o limite de peso.
 
 Do ponto de vista teórico, o Problema da Mochila 0/1 é reconhecidamente difícil: sua versão de decisão é NP-Completa, o que implica que, em geral, não se espera encontrar soluções exatas eficientes para instâncias arbitrárias. Essa característica motiva a análise de diferentes abordagens, tanto exatas quanto aproximadas, cada uma com vantagens e limitações específicas.
 
 Neste trabalho, investigamos o problema sob múltiplas perspectivas. Primeiramente, apresentamos uma justificativa formal da NP-completude do problema. Em seguida, implementamos um algoritmo exato com uso de espaço linear e analisamos suas limitações práticas. Também desenvolvemos a solução clássica por programação dinâmica, incluindo o processo de reconstrução dos itens selecionados. Por fim, propomos um algoritmo aproximado baseado em heurística gulosa, avaliando sua qualidade em relação à solução ótima e discutindo sua eficiência.
 
 A combinação dessas técnicas permite compreender não apenas os fundamentos teóricos do Problema da Mochila, mas também o comportamento das soluções na prática, especialmente quando comparadas sob diferentes tamanhos de entrada e estratégias de resolução.
+
 \section{Questão A}
 \subsection{NP-completude do Problema da Mochila 0/1 (versão de decisão)}
 
@@ -54,7 +71,7 @@ A versão de decisão do Problema da Mochila 0/1 pertence a NP e é NP-difícil;
 
 \section{Questão B}
 \subsection{Implementação ingênua recursiva}
-O código a seguir é a implementação ingênua recursiva, localizado no arquivo 1_brutalF.py}:
+O código a seguir é a implementação ingênua recursiva, localizado no arquivo \texttt{1\_brutalF.py}:
 \begin{verbatim}
 #[Naive Approach] Using Recursion O(2^n) Time and O(n) Space
 # Returns the maximum value that
@@ -90,36 +107,38 @@ if __name__ == "__main__":
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.75\textwidth]{figuras/impl1_times.png}
+% \includegraphics[width=0.75\textwidth]{figuras/impl1_times.png} % Comentei para compilar sem a imagem
 \caption{Tempos medidos (escala log) para a implementação ingênua em função de $n$.}
 \label{fig:impl1_times}
 \end{figure}
 
-\\subsection{Maior problema com solução ótima obtida}
+\subsection{Maior problema com solução ótima obtida}
 
 Experimentalmente, a maior instância para a qual foi possível obter a solução ótima utilizando uma implementação prática foi:
 
 \begin{itemize}
-    \item \textbf{Versão otimizada} (arquivo \texttt{4_pd_com_itens.py}): $n = 32$, capacidade $W = 100$,
+    \item \textbf{Versão otimizada} (arquivo \texttt{4\_pd\_com\_itens.py}): $n = 32$, capacidade $W = 100$,
     com tempo medido $T(32) \approx 9.995\times10^{-4}\,$s (conforme registro em \texttt{results.csv}).
 \end{itemize}
 
-A implementação em \texttt{4_pd_com_itens.py} (programação dinâmica com reconstrução da solução) conseguiu resolver todas as instâncias até $n=32$ sem dificuldades.
+A implementação em \texttt{4\_pd\_com\_itens.py} (programação dinâmica com reconstrução da solução) conseguiu resolver todas as instâncias até $n=32$ sem dificuldades.
 
-Por outro lado, a implementação ingênua (arquivo \texttt{1_brutalF.py}) apresentou tempos aceitáveis apenas para instâncias pequenas: os experimentos mostram que, a partir de aproximadamente $n \ge 20$, o método recursivo força-bruta se torna impraticável, gerando tempo de execução excessivo ou mesmo \emph{timeout} para $n = 28, 30$ e $32$ em diversas execuções.
+Por outro lado, a implementação ingênua (arquivo \texttt{1\_brutalF.py}) apresentou tempos aceitáveis apenas para instâncias pequenas: os experimentos mostram que, a partir de aproximadamente $n \ge 20$, o método recursivo força-bruta se torna impraticável, gerando tempo de execução excessivo ou mesmo \emph{timeout} para $n = 28, 30$ e $32$ em diversas execuções.
 
 Esses resultados são coerentes com a complexidade exponencial da abordagem ingênua, em contraste com a solução de programação dinâmica, cujo custo é polinomial em $nW$ e portanto viável para capacidades moderadas como as testadas.
 
 
 \subsection{Comentário sobre a limitação}
 O comportamento observado é consistente com a análise teórica:
-- A implementação ingênua (arquivo \texttt{1_brutalF.py}) tem complexidade temporal $\Theta(2^{n})$ — o número de chamadas recursivas cresce exponencialmente.
-- A implementação por programação dinâmica (arquivo \texttt{4_pd_com_itens.py}) tem custo polinomial dependente de $n$ e da capacidade $W$, resultando em tempos muito menores na prática quando $W$ é moderado.
+\begin{itemize}
+    \item A implementação ingênua (arquivo \texttt{1\_brutalF.py}) tem complexidade temporal $\Theta(2^{n})$ — o número de chamadas recursivas cresce exponencialmente.
+    \item A implementação por programação dinâmica (arquivo \texttt{4\_pd\_com\_itens.py}) tem custo polinomial dependente de $n$ e da capacidade $W$, resultando em tempos muito menores na prática quando $W$ é moderado.
+\end{itemize}
 
 Na prática, cada incremento em $n$ tende a multiplicar o tempo por fator próximo de 2 na versão ingênua, daí o crescimento exponencial observado.
 
 \subsection{Estimativa para entrada 10x maior que o maior problema resolvido}
-Vamos estimar o tempo necessário para uma entrada $10\times$ maior que o maior problema resolvido experimentalmente ($n_{max}=32$). Mostramos duas estimativas: para a implementação exata (arquivo \texttt{4_pd_com_itens.py}) e para a implementação ingênua (arquivo \texttt{1_brutalF.py}) usando o ajuste exponencial obtido dos dados.
+Vamos estimar o tempo necessário para uma entrada $10\times$ maior que o maior problema resolvido experimentalmente ($n_{max}=32$). Mostramos duas estimativas: para a implementação exata (arquivo \texttt{4\_pd\_com\_itens.py}) e para a implementação ingênua (arquivo \texttt{1\_brutalF.py}) usando o ajuste exponencial obtido dos dados.
 
 \subsubsection{Implementação exata (hipótese A: $W$ fixo)}
 
@@ -178,7 +197,7 @@ A extrapolação confirma que a versão ingênua é completamente impraticável 
 
 \section{Questão C}
 
-\subsubsection{Implementação em Python (arquivo \texttt{4_pd_com_itens.py})}
+\subsubsection{Implementação em Python (arquivo \texttt{4\_pd\_com\_itens.py})}
 
 A seguir apresenta-se a implementação do algoritmo de programação dinâmica
 para o problema da mochila 0/1, incluindo o procedimento completo de
@@ -272,7 +291,7 @@ no tutorial, utilizada para ilustrar o processo de reconstrução dos itens.
 
 \begin{figure}[h]
 \centering
-\includegraphics[width=0.7\textwidth]{figuras/tabela.png}
+% \includegraphics[width=0.7\textwidth]{figuras/tabela.png} % Comentei para compilar sem a imagem
 \caption{Tabela de DP usada na reconstrução dos itens (fonte: W3Schools).}
 \label{fig:tabela_w3}
 \end{figure}
@@ -281,7 +300,7 @@ no tutorial, utilizada para ilustrar o processo de reconstrução dos itens.
 
 Usamos uma heurística gulosa baseada na razão valor/peso. Ordena-se os itens por $v/w$ decrescente e seleciona-se enquanto houver capacidade. Complexidade: $O(n\log n)$ pela ordenação.
 
-\subsection{Código (arquivo \texttt{3_greed.py})}
+\subsection{Código (arquivo \texttt{3\_greed.py})}
 \begin{verbatim}
 #[Approximation] Greedy approach (value/weight ratio) - O(n log n) time
 def knapsack(W, val, wt):
@@ -334,21 +353,21 @@ if __name__ == "__main__":
 \section{Questão E}
 Esta seção apresenta a análise assintótica das implementações desenvolvidas, considerando tempo e espaço.
 
-\subsection{Algoritmo 1 — \texttt{1_brutalF.py} (ingênuo recursivo)}
+\subsection{Algoritmo 1 — \texttt{1\_brutalF.py} (ingênuo recursivo)}
 A implementação ingênua explora o espaço de soluções através de uma árvore de recursão.
 \begin{itemize}
   \item \textbf{Tempo:} $\Theta(2^{n})$. No pior caso, para cada item, há duas decisões (pegar ou não), gerando uma árvore binária completa de altura $n$.
   \item \textbf{Espaço:} $O(n)$. O consumo de memória é dominado pela pilha de chamadas recursivas, que atinge profundidade $n$.
 \end{itemize}
 
-\subsection{Algoritmo 2 — \texttt{2_pd.py} e \texttt{4_pd_com_itens.py} (Programação Dinâmica)}
+\subsection{Algoritmo 2 — \texttt{2\_pd.py} e \texttt{4\_pd\_com\_itens.py} (Programação Dinâmica)}
 As soluções baseadas em Programação Dinâmica (tanto top-down quanto bottom-up) evitam recomputações armazenando resultados de subproblemas.
 \begin{itemize}
   \item \textbf{Tempo:} $O(nW)$. O algoritmo preenche uma tabela de tamanho $(n+1) \times (W+1)$, onde cada célula é calculada em tempo constante $O(1)$.
-  \item \textbf{Espaço:} $O(nW)$. Necessário para manter a tabela de estados. (Nota: em \texttt{4_pd_com_itens.py}, a tabela completa é mantida para permitir a reconstrução da solução; se apenas o valor fosse necessário, o espaço poderia ser reduzido para $O(W)$).
+  \item \textbf{Espaço:} $O(nW)$. Necessário para manter a tabela de estados. (Nota: em \texttt{4\_pd\_com\_itens.py}, a tabela completa é mantida para permitir a reconstrução da solução; se apenas o valor fosse necessário, o espaço poderia ser reduzido para $O(W)$).
 \end{itemize}
 
-\subsection{Algoritmo 3 — \texttt{3_greed.py} (Heurística Gulosa)}
+\subsection{Algoritmo 3 — \texttt{3\_greed.py} (Heurística Gulosa)}
 A heurística ordena os itens pela razão valor/peso e os seleciona iterativamente.
 \begin{itemize}
   \item \textbf{Tempo:} $O(n\log n)$. A complexidade é dominada pelo algoritmo de ordenação ($O(n\log n)$). A seleção subsequente é linear $O(n)$.
@@ -364,9 +383,9 @@ A tabela a seguir resume as ordens de complexidade:
 \toprule
 Algoritmo & Método & Tempo & Espaço \\
 \midrule
-\texttt{1_brutalF.py} & Força Bruta & $\Theta(2^n)$ & $O(n)$ \\
-\texttt{2_pd.py} & Prog. Dinâmica & $O(nW)$ & $O(nW)$ \\
-\texttt{3_greed.py} & Guloso & $O(n\log n)$ & $O(n)$ \\
+\texttt{1\_brutalF.py} & Força Bruta & $\Theta(2^n)$ & $O(n)$ \\
+\texttt{2\_pd.py} & Prog. Dinâmica & $O(nW)$ & $O(nW)$ \\
+\texttt{3\_greed.py} & Guloso & $O(n\log n)$ & $O(n)$ \\
 \bottomrule
 \end{tabular}
 \caption{Comparação de complexidade teórica.}
@@ -376,7 +395,7 @@ Algoritmo & Método & Tempo & Espaço \\
 
 \section{Questão F}
 
-Nesta seção avaliamos o quão próxima a heurística gulosa (arquivo \texttt{3_greed.py}) chega da solução ótima obtida pela implementação baseada em programação dinâmica (arquivo \texttt{4_pd_com_itens.py}). A análise utiliza os valores armazenados em \texttt{results.csv}. Para cada par (capacidade $W$, número de itens $n$) em que ambos os algoritmos retornaram uma resposta com status \texttt{ok}, calculamos:
+Nesta seção avaliamos o quão próxima a heurística gulosa (arquivo \texttt{3\_greed.py}) chega da solução ótima obtida pela implementação baseada em programação dinâmica (arquivo \texttt{4\_pd\_com\_itens.py}). A análise utiliza os valores armazenados em \texttt{results.csv}. Para cada par (capacidade $W$, número de itens $n$) em que ambos os algoritmos retornaram uma resposta com status \texttt{ok}, calculamos:
 
 \begin{itemize}
   \item \textbf{Diferença absoluta:} $\Delta = V_{opt} - V_{approx}$;
@@ -488,7 +507,7 @@ Em resumo, os testes aleatórios confirmam que a análise teórica é um bom ind
 
 Nesta seção, apresentamos a listagem completa e uma análise detalhada das estruturas de dados e funcionamento dos algoritmos 1 (Força Bruta), 2 (Programação Dinâmica Espaço Otimizado) e 4 (Programação Dinâmica com Reconstrução), conforme solicitado.
 
-\subsubsection{Algoritmo 1: Força Bruta Recursiva (\texttt{1_brutalF.py})}
+\subsubsection{Algoritmo 1: Força Bruta Recursiva (\texttt{1\_brutalF.py})}
 
 \textbf{Descrição do Algoritmo:}
 Este algoritmo implementa a abordagem clássica de recursão. Para cada item, a função decide entre duas opções: (1) incluir o item na mochila (se couber) ou (2) não incluir. O valor retornado é o máximo entre essas duas escolhas.
@@ -526,7 +545,7 @@ def knapsack(W, val, wt):
     return knapsackRec(W, val, wt, n)
 \end{verbatim}
 
-\subsubsection*{Algoritmo 2: Programação Dinâmica Bottom-Up - Espaço Otimizado (\texttt{2_pd.py})}
+\subsubsection*{Algoritmo 2: Programação Dinâmica Bottom-Up - Espaço Otimizado (\texttt{2\_pd.py})}
 
 \textbf{Descrição do Algoritmo:}
 Este algoritmo resolve o problema iterativamente preenchendo uma tabela de programação dinâmica. A otimização chave aqui é o uso de um array unidimensional \texttt{dp} de tamanho $W+1$. Ao iterar sobre os pesos de trás para frente (de $W$ até o peso do item atual), garantimos que estamos usando os valores da iteração anterior (ou seja, sem o item atual) para calcular o novo máximo, evitando o uso múltiplo do mesmo item (problema da mochila 0/1).
@@ -559,7 +578,7 @@ def knapsack(W, val, wt):
     return dp[W]
 \end{verbatim}
 
-\subsubsection{Algoritmo 4: Programação Dinâmica com Reconstrução (\texttt{4_pd_com_itens.py})}
+\subsubsection{Algoritmo 4: Programação Dinâmica com Reconstrução (\texttt{4\_pd\_com\_itens.py})}
 
 \textbf{Descrição do Algoritmo:}
 Diferente do Algoritmo 2, esta versão constrói a tabela completa $DP[n+1][W+1]$. Isso é necessário para permitir o \textit{backtracking} ao final do preenchimento e descobrir quais itens compõem a solução ótima. O algoritmo preenche a tabela baseando-se na recorrência clássica: $DP[i][w] = \max(DP[i-1][w], val[i] + DP[i-1][w-wt[i]])$.
@@ -618,9 +637,9 @@ def knapsack_with_items(W, val, wt):
 Em resumo, este estudo comparou três abordagens clássicas para o Problema da Mochila:
 
 \begin{itemize}
-  \item \textbf{Força Bruta (\texttt{1_brutalF.py})}: Garante a solução ótima, mas seu custo exponencial a torna impraticável para $n > 25$.
-  \item \textbf{Programação Dinâmica (\texttt{4_pd_com_itens.py})}: Garante a solução ótima e é muito eficiente para capacidades $W$ moderadas, com complexidade $O(nW)$.
-  \item \textbf{Heurística Gulosa (\texttt{3_greed.py})}: Extremamente rápida ($O(n\log n)$), ideal para instâncias massivas, embora não garanta otimalidade (erro médio de $\approx 3.5\%$ nos testes).
+  \item \textbf{Força Bruta (\texttt{1\_brutalF.py})}: Garante a solução ótima, mas seu custo exponencial a torna impraticável para $n > 25$.
+  \item \textbf{Programação Dinâmica (\texttt{4\_pd\_com\_itens.py})}: Garante a solução ótima e é muito eficiente para capacidades $W$ moderadas, com complexidade $O(nW)$.
+  \item \textbf{Heurística Gulosa (\texttt{3\_greed.py})}: Extremamente rápida ($O(n\log n)$), ideal para instâncias massivas, embora não garanta otimalidade (erro médio de $\approx 3.5\%$ nos testes).
 \end{itemize}
 
 Recomenda-se o uso da abordagem gulosa para decisões rápidas em grandes volumes de dados e a programação dinâmica quando a precisão é crítica e a capacidade permite.
